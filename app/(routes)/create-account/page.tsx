@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Input } from '@/components';
+import { Button, Input, Layout } from '@/components';
 import { useMutation } from '@/lib/client/hooks';
 import { useRouter } from 'next/navigation';
 import { API_PATH } from '@/lib/const';
@@ -42,31 +42,33 @@ export default function CreateAccount() {
   }, [data, router]);
 
   return (
-    <main className="mt-16 px-4">
-      <h3 className="text-3xl font-bold text-center">Join Maeil-Tweet</h3>
-      <form
-        onSubmit={handleSubmit(onValid)}
-        className="flex flex-col mt-8 space-y-4"
-      >
-        <Input
-          register={register('email', { required: true })}
-          name="email"
-          label="Email"
-          type="email"
-          kind="text"
-          required
-        />
-        <Input
-          register={register('name', { required: true })}
-          name="name"
-          label="Name"
-          type="text"
-          kind="text"
-          required
-        />
-        <Button type="submit" text={'Create Account'} />
-        <Button type="reset" text={'Reset Form'} colorType="secondary" />
-      </form>
-    </main>
+    <Layout canGoBack>
+      <main className="mt-16 px-4">
+        <h3 className="text-3xl font-bold text-center">Join Maeil-Tweet</h3>
+        <form
+          onSubmit={handleSubmit(onValid)}
+          className="flex flex-col mt-8 space-y-4"
+        >
+          <Input
+            register={register('email', { required: true })}
+            name="email"
+            label="Email"
+            type="email"
+            kind="text"
+            required
+          />
+          <Input
+            register={register('name', { required: true })}
+            name="name"
+            label="Name"
+            type="text"
+            kind="text"
+            required
+          />
+          <Button type="submit" text={'Create Account'} />
+          <Button type="reset" text={'Reset Form'} colorType="secondary" />
+        </form>
+      </main>
+    </Layout>
   );
 }
