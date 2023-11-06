@@ -3,24 +3,27 @@ import { cls } from '@/lib/client/utils';
 interface ButtonProps {
   large?: boolean;
   text: string;
-  type?: 'primary' | 'secondary' | 'accent';
+  type: 'submit' | 'reset' | 'button';
+  colorType?: 'primary' | 'secondary' | 'accent';
   [key: string]: any;
 }
 
 export default function Button({
   large = false,
-  type = 'primary',
+  colorType = 'primary',
+  type,
   onClick,
   text,
   ...rest
 }: ButtonProps) {
   return (
     <button
+      type={type}
       className={cls(
         'btn w-full shadow-md',
-        type === 'secondary'
+        colorType === 'secondary'
           ? 'btn-secondary'
-          : type === 'accent'
+          : colorType === 'accent'
           ? 'btn-accent'
           : 'btn-primary',
         large ? 'py-3 text-base' : 'py-2 text-sm'
