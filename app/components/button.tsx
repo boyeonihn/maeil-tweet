@@ -3,7 +3,7 @@ import { cls } from '@/lib/client/utils';
 interface ButtonProps {
   large?: boolean;
   text: string;
-  type: 'submit' | 'reset' | 'button';
+  type?: 'submit' | 'reset' | 'button';
   colorType?: 'primary' | 'secondary' | 'accent';
   [key: string]: any;
 }
@@ -11,7 +11,7 @@ interface ButtonProps {
 export default function Button({
   large = false,
   colorType = 'primary',
-  type,
+  type = 'submit',
   onClick,
   text,
   ...rest
