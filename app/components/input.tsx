@@ -1,0 +1,44 @@
+import type { UseFormRegisterReturn } from 'react-hook-form';
+
+interface InputProps {
+  label: string;
+  name: string;
+  kind?: 'text';
+  type: string;
+  register?: UseFormRegisterReturn;
+  required: boolean;
+  placeholder?: string;
+}
+
+export default function Input({
+  name,
+  kind = 'text',
+  register,
+  type,
+  required,
+}: InputProps) {
+  return (
+    <div>
+      {kind === 'text' ? (
+        <div className="form-control w-full max-w-lg">
+          <label className="label">
+            <span className="label-text text-lg">What is your {name}?</span>
+            <span className="label-text-alt"></span>
+          </label>
+          <input
+            type={type}
+            id={name}
+            required={required}
+            placeholder="Type here"
+            className="input input-bordered w-full text-lg max-w-lg input-primary rounded-lg shadow-sm focus:bg-sky-200"
+            {...register}
+          />
+          <label className="label">
+            <span className="label-text-alt"></span>
+            <span className="label-text-alt"></span>
+          </label>
+        </div>
+      ) : null}
+    </div>
+  );
+}
