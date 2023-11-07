@@ -17,7 +17,7 @@ export default function Post({
 }: PostProps) {
   return (
     <Link
-      href={`/posts/${id}`}
+      href={`/tweets/${id}`}
       className="flex px-4 pt-5 cursor-pointer justify-between"
     >
       <div className="flex space-x-4">
