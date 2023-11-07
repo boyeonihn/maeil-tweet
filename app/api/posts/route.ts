@@ -6,7 +6,7 @@ export const POST = async (req: NextRequest) => {
   const { content } = await req.json();
   const { user } = await getServerActionSession();
 
-  const product = await prismaClient.post.create({
+  const post = await prismaClient.post.create({
     data: {
       content,
       imageUrl: 'xx',
@@ -18,7 +18,7 @@ export const POST = async (req: NextRequest) => {
     },
   });
 
-  return NextResponse.json({ ok: true, product }, { status: 200 });
+  return NextResponse.json({ ok: true, post }, { status: 200 });
 };
 
 export const GET = async () => {
