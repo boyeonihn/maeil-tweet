@@ -1,17 +1,14 @@
 import { NextResponse } from 'next/server';
 import prismaClient from '@/lib/server/prismaClient';
 import { cookies } from 'next/headers';
+import { findUserByEmail } from '@/lib/server/prismaHandler';
 
 export const POST = async (req: Request) => {
   const res = await req.json();
   const { email, name } = res;
 
-  const isEmailTaken = await prismaClient.user.findUnique({
-    where: {
-      email,
-    },
-  });
-
+  const isEmailTaken = await findUserByEmail(email);
+  console.log('isEmailtaken', isEmailTaken);
   if (isEmailTaken) {
     return NextResponse.json({
       ok: false,
