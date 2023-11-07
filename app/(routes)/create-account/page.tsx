@@ -1,11 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Input, Layout } from '@/components';
+import { Button, Divider, Input, Layout } from '@/components';
 import { useMutation } from '@/lib/client/hooks';
 import { useRouter } from 'next/navigation';
 import { API_PATH } from '@/lib/const';
 import { User } from '@prisma/client';
+import Link from 'next/link';
 
 interface JoinForm {
   email: string;
@@ -65,9 +66,13 @@ export default function CreateAccount() {
             kind="text"
             required
           />
-          <Button type="submit" text={'Create Account'} />
-          <Button type="reset" text={'Reset Form'} colorType="secondary" />
+          <Button text={'Create Account'} />
+          <Button type="reset" text={'Reset Form'} />
         </form>
+        <Divider text={'Have an account?'} />
+        <Link href="/log-in">
+          <Button type="button" colorType="secondary" text={'Login'} />
+        </Link>
       </main>
     </Layout>
   );
