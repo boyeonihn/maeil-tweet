@@ -8,6 +8,7 @@ interface InputProps {
   register?: UseFormRegisterReturn;
   required: boolean;
   placeholder?: string;
+  labelType?: 'declarative' | 'question';
 }
 
 export default function Input({
@@ -16,13 +17,18 @@ export default function Input({
   register,
   type,
   required,
+  labelType = 'question',
 }: InputProps) {
   return (
     <div>
       {kind === 'text' ? (
         <div className="form-control w-full max-w-lg">
           <label className="label">
-            <span className="label-text text-lg">What is your {name}?</span>
+            <span className="label-text text-lg">
+              {labelType === 'question'
+                ? `What is your ${name}?`
+                : `Please enter your ${name}`}
+            </span>
             <span className="label-text-alt"></span>
           </label>
           <input
