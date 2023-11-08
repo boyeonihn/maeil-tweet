@@ -21,6 +21,7 @@ model User {
   tokens Token[]
   posts Post[]
   likes Like[]
+  comments Comment[]
 }
 
 model Token {
@@ -44,6 +45,7 @@ model Post {
   published Boolean @default(false)
   content String
   likes Like[]
+  comments Comment[]
 
   @@index([userId])
 }
@@ -60,4 +62,18 @@ model Like {
   @@index([userId])
   @@index([postId])
 
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId Int
+  
+  @@index([userId])
+  @@index([postId])
 }
