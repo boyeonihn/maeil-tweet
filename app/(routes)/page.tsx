@@ -21,15 +21,22 @@ interface PostsResponse {
 
 export default function Home() {
   const { user, isLoading } = useUser();
-  const { data, isLoading: isLoadingData } = useSWR<PostsResponse>(
-    API_PATH.POST
-  );
+  const {
+    data,
+    isLoading: isLoadingData,
+    mutate,
+  } = useSWR<PostsResponse>(API_PATH.POST);
+
+  const refreshData = () => {
+    console.log('trying to refresh');
+    mutate();
+  };
 
   return (
     <Layout title="Home" hasTabBar={true}>
       <main className="flex flex-col space-y-5 divide-y">
         <section>
-          <WriteForm />
+          <WriteForm locatedAtHomePage={true} refreshData={refreshData} />
         </section>
         {!isLoadingData && (
           <div>
@@ -56,10 +63,6 @@ export default function Home() {
 }
 
 /*
-/ : 로그인 여부를 확인하여 로그인이 되어있다면 홈페이지를 그렇지 않다면 계정 생성 / 로그인 페이지로 이동하세요.
-/create-account : 계정을 생성하는 페이지입니다.
-/log-in : 로그인을 진행하는 페이지입니다.
-/tweet/[id] : 트윗의 상세 정보를 보는 페이지 입니다.
 /:
 After logging in, in the Home Page, the user should see all the Tweets on the database, the user should also be able to POST a Tweet.
 로그인이 완료되었을 경우, 사용자는 데이터베이스에 존재하는 모든 트윗을 볼 수 있어야 합니다.
