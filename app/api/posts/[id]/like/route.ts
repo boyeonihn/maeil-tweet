@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prismaClient from '@/lib/server/prismaClient';
 import { readCookieFromStorageServerAction } from '@/lib/server/serverActions';
+import { SESSION } from '@/lib/const';
 
 export const POST = async (
   req: NextRequest,
@@ -8,7 +9,7 @@ export const POST = async (
 ) => {
   const {
     user: { id: userId },
-  } = await readCookieFromStorageServerAction('session');
+  } = await readCookieFromStorageServerAction(SESSION);
 
   // findUnique only looks through records that are 'UNIQUE'
   const likeRecordExists = await prismaClient.like.findFirst({

@@ -2,6 +2,7 @@ import {
   getServerActionSession,
   getServerActionAuthInfo,
 } from '@/lib/server/session';
+import { AUTH } from '@/lib/const';
 
 interface CookieSubmitInfo {
   cookie: number;
@@ -12,7 +13,7 @@ export const submitCookieToStorageServerAction = async ({
   cookie,
   type,
 }: CookieSubmitInfo) => {
-  if (type === 'auth') {
+  if (type === AUTH) {
     const auth = await getServerActionAuthInfo();
     auth.user = { id: cookie };
     await auth.save();
@@ -37,7 +38,7 @@ export const readCookieFromStorageServerAction = async (
 };
 
 export const confirmTokenUserMatch = async (userId: number) => {
-  const authUserCookie = await readCookieFromStorageServerAction('auth');
+  const authUserCookie = await readCookieFromStorageServerAction(AUTH);
 
   if (!authUserCookie) return false;
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prismaClient from '@/lib/server/prismaClient';
 import { readCookieFromStorageServerAction } from '@/lib/server/serverActions';
+import { SESSION } from '@/lib/const';
 
 export const GET = async (
   req: NextRequest,
@@ -8,7 +9,7 @@ export const GET = async (
 ) => {
   const {
     user: { id: userId },
-  } = await readCookieFromStorageServerAction('session');
+  } = await readCookieFromStorageServerAction(SESSION);
   const post = await prismaClient.post.findUnique({
     where: {
       id: +id,

@@ -6,3 +6,6 @@ export const API_PATH = {
   CONFIRM: '/api/users/confirm',
   LIKE: (postId: string) => `/api/posts/${postId}/like`,
 };
+
+export const SESSION = 'session';
+export const AUTH = 'auth';

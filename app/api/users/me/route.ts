@@ -1,10 +1,11 @@
 import { readCookieFromStorageServerAction } from '@/lib/server/serverActions';
 import prismaClient from '@/lib/server/prismaClient';
 import { NextResponse } from 'next/server';
+import { SESSION } from '@/lib/const';
 
 export const GET = async (isPrivate = true) => {
   // bring logged in user's unique cookies
-  const cookieFromStorage = await readCookieFromStorageServerAction('session');
+  const cookieFromStorage = await readCookieFromStorageServerAction(SESSION);
 
   // console.log('api/users/me - checking cookies of logged in user', cookieFromStorage);
   if (isPrivate && !cookieFromStorage.user) {

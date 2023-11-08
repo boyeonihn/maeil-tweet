@@ -7,6 +7,7 @@ import {
   readCookieFromStorageServerAction,
   submitCookieToStorageServerAction,
 } from '@/lib/server/serverActions';
+import { AUTH } from '@/lib/const';
 
 // const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 export const POST = async (req: Request) => {
@@ -44,7 +45,7 @@ export const POST = async (req: Request) => {
 
   const authInfoCookieAttempt = await submitCookieToStorageServerAction({
     cookie: userExists.id,
-    type: 'auth',
+    type: AUTH,
   });
 
   const bringCookieBack = await readCookieFromStorageServerAction('auth');
