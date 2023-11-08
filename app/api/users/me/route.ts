@@ -7,7 +7,6 @@ export const GET = async (isPrivate = true) => {
   // bring logged in user's unique cookies
   const cookieFromStorage = await readCookieFromStorageServerAction(SESSION);
 
-  console.log('reading cookies if session exists');
   // console.log('api/users/me - checking cookies of logged in user', cookieFromStorage);
   if (isPrivate && !cookieFromStorage.user) {
     return NextResponse.json(
@@ -26,5 +25,6 @@ export const GET = async (isPrivate = true) => {
       (key, value) => (typeof value === 'bigint' ? value.toString() : value) // return everything else unchanged
     )
   );
+
   return NextResponse.json({ ok: true, userInfo }, { status: 200 });
 };

@@ -17,19 +17,16 @@ export const submitCookieToStorageServerAction = async ({
     const auth = await getServerActionAuthInfo();
     auth.user = { id: cookie };
     await auth.save();
-    console.log('auth is saved');
   } else {
     const session = await getServerActionSession();
     session.user = { id: cookie };
     await session.save();
-    console.log('session is saved');
   }
 };
 
 export const readCookieFromStorageServerAction = async (
   type: 'auth' | 'session'
 ): Promise<any> => {
-  console.log('READ COOKIES FROM STORAGE SERVER');
   if (type === 'auth') {
     const auth = await getServerActionAuthInfo();
     return auth || 'No Auth Cookie Stored!';
