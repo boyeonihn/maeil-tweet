@@ -2,29 +2,29 @@
 
 import { Layout, Button } from '@/components';
 import { API_PATH } from '@/lib/const';
-import { Post, User } from '@prisma/client';
+import { Comment, Post, User } from '@prisma/client';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import useSWR, { useSWRConfig } from 'swr';
+import useSWR from 'swr';
 import { useMutation, useUser } from '@/lib/client/hooks';
 import { cls } from '@/lib/client/utils';
 
-interface ProductWithUser extends Post {
+interface PostWithUser extends Post {
   user: User;
 }
-interface ProductDetailResponse {
+interface PosttDetailResponse {
   ok: boolean;
-  product: ProductWithUser;
-  relatedItems: Post[];
+  post: PostWithUser;
+  relatedPosts: Post[];
   isLiked: boolean;
+  comments: Comment[];
 }
 
 const PostDetail = () => {
   const { user, isLoading } = useUser();
   const { id } = useParams();
   const [toggleLike, { loading }] = useMutation(API_PATH.LIKE(id[0]));
-  const { mutate } = useSWRConfig();
-  const { data, mutate: boundMutate } = useSWR<ProductDetailResponse>(
+  const { data, mutate: boundMutate } = useSWR<PosttDetailResponse>(
     id ? `${API_PATH.POST}/${id}` : null
   );
 
@@ -42,7 +42,7 @@ const PostDetail = () => {
     // second argument true - triggers revaldiation
   };
   return (
-    <Layout canGoBack>
+    <Layout canGoBack hasTabBar>
       <main className="px-4 py-4">
         <section className="mb-8">
           <div className="h-96 bg-slate-300" />
@@ -50,11 +50,11 @@ const PostDetail = () => {
             <div className="w-12 h-12 rounded-full bg-slate-300" />
             <div>
               <p className="text-sm font-medium text-gray-700">
-                {data?.product?.user?.name} hello
+                {data?.post?.user?.name}
               </p>
               <Link
                 className="text-sm font-medium text-gray-600"
-                href={`/users/profile/${data?.product?.userId}`}
+                href={`/users/profile/${data?.post?.userId}`}
               >
                 View profile &rarr;
               </Link>
@@ -62,7 +62,7 @@ const PostDetail = () => {
           </div>
           <div className="mt-5">
             <h1 className="text-3xl font-bold text-gray-900">
-              {data?.product?.content}
+              {data?.post?.content}
             </h1>
             <span className="block text-3xl mt-3 text-gray-900"></span>
             <p className="text-base my-6 text-gray-700"></p>
