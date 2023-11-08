@@ -11,6 +11,7 @@ import { cls } from '@/lib/client/utils';
 
 interface PostWithUser extends Post {
   user: User;
+  comments: Comment[];
 }
 interface PosttDetailResponse {
   ok: boolean;
@@ -99,15 +100,17 @@ const PostDetail = () => {
           </div>
         </section>
         <section>
-          <h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
+          <h1>COMMENTS</h1>
+        </section>
+        <section>
+          <h2 className="text-2xl font-bold text-gray-900">Similar posts</h2>
           <div className="mt-6 grid grid-cols-2 gap-4">
-            {/* {data?.relatedItems.map((item) => (
+            {/* {data?.relatedPosts.map((item) => (
               <Link href={`/products/${item.id}`} key={item.id}>
                 <div>
                   <div className="h-56 mb-4 w-full bg-slate-300" />
                   <h3 className="text-gray-700 -mb-1">{item.name}</h3>
                   <span className="text-xs font-medium text-gray-900">
-                    {item.price}
                   </span>
                 </div>
               </Link>
