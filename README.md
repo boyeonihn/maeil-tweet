@@ -12,9 +12,17 @@ Next.js 포스트 기반 웹 SNS - A Next.js post-based social media web applica
 
 ## 🚀 Getting Started | 프로젝트 실행 방법
 
-First, please create a `.env` file and create a variable with the name of `COOKIE_PW` and assign the variable a 40-character long password.
+Please note that this project supports Node.js version 18 or higher.
 
-먼저 이 레포를 다운 받으시고 나서 `.env` 파일을 만든 후, `.env` 파일 안에 `COOKIE_PW`라는 변수에 최소 40자인 비밀번호를 넣어주세요.
+이 프로젝트는 node 18 버전 이상을 지원합니다.
+
+First, please create a `.env` file and create a variable with the name of `COOKIE_PW` and assign the variable a 40-character long password. You could run the following command in the terminal to do this.
+
+먼저 이 레포를 다운 받으시고 나서 `.env` 파일을 만든 후, `.env` 파일 안에 `COOKIE_PW`라는 변수에 최소 40자인 비밀번호를 넣어주세요. 아래 명령어를 실행하면 `COOKIE_PW`가 `.env` 파일 안에 실행됩니다.
+
+```bash
+$ echo "COOKIE_PW=$(LC_ALL=C tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 40)" > .env
+```
 
 Then, please run the development server. Open [http://localhost:3000](http://localhost:3000) with your browser to see the home `/` page load.
 `.env` 파일을 생성하신 후, 개발 서버를 실행하세요. 아래 해당 명령어를 실행한 후 브라우저로 [http://localhost:3000](http://localhost:3000)에 가서 홈페이지에 접속해보세요.
