@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Divider, Input } from '@/components';
 import { useMutation } from '@/lib/client/hooks';
@@ -19,15 +19,17 @@ interface MutationResult {
   ok: boolean;
 }
 
+interface LoginMutationResult extends MutationResult {
+  error?: string;
+}
+
 export default function Login() {
-  const [login, { loading, data, error }] = useMutation<MutationResult>(
+  const [login, { loading, data, error }] = useMutation<LoginMutationResult>(
     API_PATH.AUTH
   );
-  const [
-    confirmToken,
-    { loading: tokenLoading, data: tokenData, error: tokenError },
-  ] = useMutation<MutationResult>(API_PATH.CONFIRM);
-  const { register, handleSubmit, watch, reset } = useForm<LoginForm>();
+  const [confirmToken, { loading: tokenLoading, data: tokenData }] =
+    useMutation<MutationResult>(API_PATH.CONFIRM);
+  const { register, handleSubmit } = useForm<LoginForm>();
   const { register: tokenRegister, handleSubmit: tokenHandleSubmit } =
     useForm<TokenForm>();
   const router = useRouter();
@@ -43,6 +45,7 @@ export default function Login() {
 
   useEffect(() => {
     if (tokenData?.ok) {
+      console.log('succesfully logged in');
       router.push('/');
     }
   }, [tokenData, router]);
@@ -79,6 +82,7 @@ export default function Login() {
                 required
                 labelType="declarative"
               />
+              {data?.ok === false && <span>{data?.error}</span>}
               <Button text={'Get login token'} />
             </form>
             <Divider text={"Don't have an account?"} />

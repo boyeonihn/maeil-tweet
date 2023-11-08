@@ -20,7 +20,6 @@ export const POST = async (req: NextRequest) => {
   const userMatchesToken = await confirmTokenUserMatch(userId);
 
   if (!userMatchesToken) {
-    console.log('token didnt match');
     return NextResponse.json(
       { ok: false, error: `Token didn't match the user attempting to login` },
       { status: 401 }
@@ -39,5 +38,6 @@ export const POST = async (req: NextRequest) => {
     },
   });
 
+  console.log('token matched, submitted cookie to storage');
   return NextResponse.json({ ok: true }, { status: 200 });
 };

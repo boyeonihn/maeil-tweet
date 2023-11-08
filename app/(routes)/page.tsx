@@ -1,6 +1,6 @@
 'use client';
 
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import { Post as PostSchema, User } from '@prisma/client';
 import { API_PATH } from '@/lib/const';
 import { useUser } from '@/lib/client/hooks';
@@ -21,6 +21,7 @@ interface PostsResponse {
 
 export default function Home() {
   const { user, isLoading } = useUser();
+  const { mutate: globalMutate } = useSWRConfig();
   const {
     data,
     isLoading: isLoadingData,
@@ -28,10 +29,10 @@ export default function Home() {
   } = useSWR<PostsResponse>(API_PATH.POST);
 
   const refreshData = () => {
-    console.log('trying to refresh');
     mutate();
   };
 
+  console.log('checking existence of user', user);
   return (
     <Layout title="Home" hasTabBar={true}>
       <main className="flex flex-col space-y-5 divide-y">

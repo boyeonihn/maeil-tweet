@@ -17,10 +17,12 @@ export const submitCookieToStorageServerAction = async ({
     const auth = await getServerActionAuthInfo();
     auth.user = { id: cookie };
     await auth.save();
+    console.log('auth is saved');
   } else {
     const session = await getServerActionSession();
     session.user = { id: cookie };
     await session.save();
+    console.log('session is saved');
   }
 };
 

@@ -19,7 +19,6 @@ export const POST = async (req: Request) => {
   const userExists = await findUserByEmail(email);
 
   if (!userExists) {
-    console.log('user does not exist');
     return NextResponse.json({
       status: 400,
       ok: false,

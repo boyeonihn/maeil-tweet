@@ -22,14 +22,22 @@ export const GET = async (
           avatar: true,
         },
       },
+      comments: true,
     },
   });
+
+  console.log(post, 'post brought from db');
   const keywords = post?.content.split(' ').map((keyword) => ({
     content: {
       contains: keyword,
     },
   }));
 
+  // const comments = await prismaClient.comment.findMany({
+  //   where: {
+  //     id: { in: post?.comments },
+  //   },
+  // });
   const relatedPosts = await prismaClient.post.findMany({
     where: {
       OR: keywords,
