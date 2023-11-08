@@ -1,18 +1,35 @@
 import Link from 'next/link';
-import React from 'react';
 
 interface FloatingButton {
-  children: React.ReactNode;
+  type: 'write';
   href: string;
 }
 
-export default function FloatingButton({ children, href }: FloatingButton) {
+export default function FloatingButton({ href, type }: FloatingButton) {
   return (
     <Link
       href={href}
-      className="fixed hover:bg-orange-500 border-0 aspect-square border-transparent transition-colors cursor-pointer  bottom-24 right-5 shadow-xl bg-orange-400 rounded-full w-14 flex items-center justify-center text-white"
+      className="fixed cursor-pointer border-transparent bottom-24 right-24"
     >
-      {children}
+      <button className="btn btn-lg btn-primary btn-circle border-4">
+        {type === 'write' ? (
+          <svg
+            className="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            />
+          </svg>
+        ) : null}
+      </button>
     </Link>
   );
 }
