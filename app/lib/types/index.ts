@@ -14,3 +14,17 @@ export interface RelatedPost extends PostWithUser {
 export interface CommentWithUser extends Comment {
   user: User;
 }
+
+export interface LikeCommentCount {
+  likes: number;
+  comments: number;
+}
+
+export interface PostsWithLikeCount extends Post {
+  _count: LikeCommentCount;
+  user: User;
+}
+export interface PostsResponse {
+  ok: boolean;
+  posts: PostsWithLikeCount[];
+}
