@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation';
-import { Button } from '.';
+import { Button } from '..';
 import { useSWRConfig } from 'swr';
 import { useMutation } from '@/lib/client/hooks';
 import { API_PATH } from '@/lib/const';
