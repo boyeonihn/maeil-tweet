@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Divider, Input } from '@/components';
-import { useMutation } from '@/lib/client/hooks';
+import { useMutation, useUser } from '@/lib/client/hooks';
 import { useRouter } from 'next/navigation';
 import { API_PATH } from '@/lib/const';
 import Link from 'next/link';
@@ -23,6 +23,7 @@ interface MutationResult {
 
 export default function Login() {
   const { mutate } = useSWRConfig();
+  const { user, isLoading } = useUser();
   const [login, { data }] = useMutation<MutationResult>(API_PATH.AUTH);
   const [confirmToken, { loading: tokenLoading, data: tokenData }] =
     useMutation<MutationResult>(API_PATH.CONFIRM);
@@ -42,7 +43,7 @@ export default function Login() {
 
   useEffect(() => {
     if (tokenData?.ok) {
-      mutate(API_PATH.ME, null, false);
+      mutate(API_PATH.ME, false);
       router.push('/');
     }
   }, [tokenData, router]);

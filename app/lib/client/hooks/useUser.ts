@@ -1,17 +1,23 @@
 import { API_PATH } from '@/lib/const';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 
 export default function useUser() {
   const { data, error } = useSWR(API_PATH.ME);
   const router = useRouter();
+  const pathName = usePathname();
 
   useEffect(() => {
-    if (data && !data.ok) {
-      router.replace('/log-in');
-    }
-  }, [data, router]);
+    if (data)
+      if (data.ok === false) {
+        router.push('/log-in');
+      } else {
+        if (pathName === '/log-in' || pathName === '/create-account') {
+          router.replace('/');
+        }
+      }
+  }, [data, error, router]);
 
   return { user: data?.userInfo, isLoading: !data && !error };
 }

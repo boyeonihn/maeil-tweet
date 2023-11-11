@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Divider, Input } from '@/components';
-import { useMutation } from '@/lib/client/hooks';
+import { useMutation, useUser } from '@/lib/client/hooks';
 import { useRouter } from 'next/navigation';
 import { API_PATH } from '@/lib/const';
 import { User } from '@prisma/client';
@@ -22,6 +22,7 @@ interface MutationResult {
 }
 
 export default function CreateAccount() {
+  const { user, isLoading } = useUser();
   const [create, { loading, data, error }] = useMutation<MutationResult>(
     API_PATH.CREATE
   );
