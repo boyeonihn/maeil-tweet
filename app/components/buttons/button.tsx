@@ -21,13 +21,13 @@ export default function Button({
       onClick={onClick}
       type={type}
       className={cls(
-        'btn w-full shadow-md',
+        'btn shadow-md',
         colorType === 'secondary'
           ? 'btn-secondary'
           : colorType === 'accent'
           ? 'btn-accent'
           : 'btn-primary',
-        large ? 'py-3 text-base' : 'py-2 text-sm'
+        large ? 'py-3 text-base w-full' : 'py-2 text-sm'
       )}
       {...rest}
     >

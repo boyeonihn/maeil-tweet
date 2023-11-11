@@ -70,7 +70,7 @@ export default function CreateAccount() {
       </form>
       <Divider text={'Have an account?'} />
       <Link href="/log-in">
-        <Button type="button" colorType="secondary" text={'Login'} />
+        <Button type="button" large colorType="secondary" text={'Login'} />
       </Link>
     </main>
   );

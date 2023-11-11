@@ -85,7 +85,12 @@ export default function Login() {
             </form>
             <Divider text={"Don't have an account?"} />
             <Link href="/create-account">
-              <Button type="button" colorType="accent" text={`Join Now!`} />
+              <Button
+                type="button"
+                large
+                colorType="accent"
+                text={`Join Now!`}
+              />
             </Link>
           </>
         )}
