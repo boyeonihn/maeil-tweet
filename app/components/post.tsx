@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Avatar } from './avatar';
 import { ReactionBtn } from './buttons/reactionButton';
+import { getInitial } from '@/lib/client/utils';
 
 interface PostProps {
   content: string;
@@ -23,7 +24,7 @@ export default function Post({
       className="flex pt-5 cursor-pointer justify-between"
     >
       <section className="flex space-x-4 text-xl">
-        <Avatar initial={author.slice(0, 2).toUpperCase()} />
+        <Avatar color="primary" initial={getInitial(author)} />
         <div className="flex flex-col">
           <div className="pt-2 flex flex-col">
             <span className="font-medium mt-1">{author}</span>
