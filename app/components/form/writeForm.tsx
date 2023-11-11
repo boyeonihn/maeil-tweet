@@ -51,7 +51,7 @@ export default function WriteForm({
         register={register('content')}
       />
       {/* <Button text="Save" /> */}
-      <Button text="Post" />
+      <Button large text="Post" />
     </form>
   );
 }
