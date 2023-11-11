@@ -2,22 +2,9 @@
 
 import { useParams } from 'next/navigation';
 import useSWR from 'swr';
-import Link from 'next/link';
-import {
-  Layout,
-  TextContainer,
-  Avatar,
-  Button,
-  CommentForm,
-} from '@/components';
+import { Layout, TextContainer, CommentForm, PostDetail } from '@/components';
 import { API_PATH } from '@/lib/const';
 import { useMutation, useUser } from '@/lib/client/hooks';
-import {
-  cls,
-  extractDateTime,
-  getInitial,
-  grabUserName,
-} from '@/lib/client/utils';
 import { CommentWithUser, PostWithUser, RelatedPost } from '@/lib/types';
 
 interface PostDetailResponse {
@@ -53,10 +40,13 @@ const PostPage = () => {
   return (
     <Layout canGoBack hasTabBar>
       <main className="px-4 py-4">
-                  </button>
-                </div>
-              </div>
-            </section>
+        {data?.post ? (
+          <>
+            <PostDetail
+              onLikeClick={onLikeClick}
+              isLiked={data?.isLiked}
+              detailData={data?.post}
+            />
             <CommentForm id={id.toString()} refreshData={boundMutate} />
             <TextContainer
               title="Comments"
