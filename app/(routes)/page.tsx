@@ -1,19 +1,16 @@
 'use client';
 
-import useSWR, { useSWRConfig } from 'swr';
+import useSWR from 'swr';
 import { Post as PostSchema, User } from '@prisma/client';
 import { API_PATH } from '@/lib/const';
-import { useMutation, useUser } from '@/lib/client/hooks';
+import { useUser } from '@/lib/client/hooks';
 import {
   WriteForm,
   Layout,
   Post,
   FloatingButton,
-  Button,
   LogoutBtn,
 } from '@/components';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 
 interface LikeCommentCount {
   likes: number;
@@ -43,7 +40,7 @@ export default function Home() {
   return (
     <Layout title="Home" hasTabBar={true}>
       <main className="flex flex-col space-y-5 divide-y">
-        <LogoutBtn />
+        {!isLoading && user && <LogoutBtn />}
         <section>
           <WriteForm locatedAtHomePage={true} refreshData={refreshData} />
         </section>
