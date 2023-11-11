@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export const Nav = () => {
   return (
-    <nav className="max-w-xl text-gray-700 border-t fixed bottom-0 w-full px-10 pb-5 pt-3 flex justify-between text-xs">
+    <nav className="max-w-xl bg-primary bg-opacity-50 border-t fixed bottom-0 w-full px-10 pb-5 pt-3 flex justify-between text-xs">
       <Link href="/" className="flex flex-col items-center space-y-2">
         <svg
           className="w-6 h-6"

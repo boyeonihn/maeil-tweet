@@ -17,7 +17,7 @@ export const Header = ({ title, canGoBack }: HeaderProps) => {
     <header
       className={cls(
         !canGoBack ? 'justify-center' : '',
-        'w-full max-w-xl text-lg px-10 font-medium py-3 fixed text-gray-800 border-b top-0  flex items-center'
+        'w-full max-w-xl text-lg px-10 font-medium py-3 fixed bg-accent bg-opacity-80 border-b top-0  flex items-center'
       )}
     >
       {canGoBack ? (
