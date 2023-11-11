@@ -23,9 +23,9 @@ import { CommentWithUser, PostWithUser, RelatedPost } from '@/lib/types';
 interface PostDetailResponse {
   ok: boolean;
   post: PostWithUser;
-  relatedPosts: Post[];
+  comments: CommentWithUser[];
+  relatedPosts: RelatedPost[];
   isLiked: boolean;
-  comments: Comment[];
 }
 
 const PostDetail = () => {
