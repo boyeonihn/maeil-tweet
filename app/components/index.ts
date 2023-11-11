@@ -11,3 +11,4 @@ export { default as Divider } from './divider';
 export { default as WriteForm } from './form/writeForm';
 export { default as LogoutBtn } from './buttons/logoutBtn';
 export { TextContainer } from './textContainer';
+export { PostDetail } from './postDetail';
