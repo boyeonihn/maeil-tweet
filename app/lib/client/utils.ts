@@ -10,3 +10,7 @@ export function extractDateTime(date: Date) {
 
   return `${yymmdd} @ ${time}`;
 }
+
+export function getInitial(text: string) {
+  return text.slice(0, 2).toUpperCase() || '';
+}
