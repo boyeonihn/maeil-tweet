@@ -28,7 +28,7 @@ interface PostDetailResponse {
   isLiked: boolean;
 }
 
-const PostDetail = () => {
+const PostPage = () => {
   const { user, isLoading } = useUser();
   const { id } = useParams();
   const [toggleLike, { loading }] = useMutation(API_PATH.LIKE(id.toString()));
@@ -78,4 +78,4 @@ const PostDetail = () => {
   );
 };
 
-export default PostDetail;
+export default PostPage;
