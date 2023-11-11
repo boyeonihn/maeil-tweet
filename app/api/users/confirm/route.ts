@@ -14,7 +14,11 @@ export const POST = async (req: NextRequest) => {
     },
   });
 
-  if (!foundToken) return NextResponse.json({ status: 404 });
+  if (!foundToken)
+    return NextResponse.json(
+      { ok: false, error: 'Incorrect Token! Please double check your token' },
+      { status: 401 }
+    );
 
   const { userId } = foundToken;
   const userMatchesToken = await confirmTokenUserMatch(userId);
