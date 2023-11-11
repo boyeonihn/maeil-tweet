@@ -1,6 +1,5 @@
 import { cls } from '@/lib/client/utils';
 import type { UseFormRegisterReturn } from 'react-hook-form';
-import { Avatar } from '../avatar';
 
 interface TextAreaProps {
   label?: string;
@@ -8,7 +7,7 @@ interface TextAreaProps {
   register?: UseFormRegisterReturn;
   required: boolean;
   placeholder?: string;
-  type: 'post' | 'reply';
+  type?: 'post' | 'reply';
   colorType?: 'primary' | 'secondary' | 'accent';
 }
 
@@ -48,18 +47,12 @@ export default function TextArea({
   } else {
     return (
       <section className="form-control text-3xl">
-        <Avatar initial={'JO'} />
         <textarea
           {...register}
           id={name}
           placeholder={label}
           className={cls(
-            `textarea h-24 mt-1 shadow-md w-full rounded-md bg-primary bg-opacity-60 text-xl`,
-            colorType === 'secondary'
-              ? 'textarea-secondary'
-              : colorType === 'accent'
-              ? 'textarea-accent'
-              : 'textarea-primary'
+            `textarea h-24 mt-1 w-[350px] rounded-md bg-primary bg-opacity-60 text-xl bg-transparent`
           )}
           rows={4}
           {...rest}
