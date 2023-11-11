@@ -39,8 +39,11 @@ export default function Home() {
 
   return (
     <Layout title="Home" hasTabBar={true}>
-      <main className="flex flex-col space-y-5 divide-y">
+      <main className="flex flex-col space-y-5 divide-y mt-8">
         {!isLoading && user && <LogoutBtn />}
+        <h1 className="text-4xl font-mono font-thin pt-5 hover:text-primary hover:font-bold hover:backdrop-blur-3xl  transition:all">
+          Maeil-Tweet
+        </h1>
         <section>
           <WriteForm locatedAtHomePage={true} refreshData={refreshData} />
         </section>
