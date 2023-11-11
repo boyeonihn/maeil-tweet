@@ -42,6 +42,5 @@ export const POST = async (req: NextRequest) => {
     },
   });
 
-  console.log('token matched, submitted cookie to storage');
   return NextResponse.json({ ok: true }, { status: 200 });
 };

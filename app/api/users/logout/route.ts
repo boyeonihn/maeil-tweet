@@ -13,6 +13,5 @@ export const POST = async (req: NextRequest) => {
   await session.destroy();
   await auth.destroy();
 
-  console.log('session', session);
   return NextResponse.json({ ok: true }, { status: 200 });
 };
