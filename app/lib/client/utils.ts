@@ -14,3 +14,7 @@ export function extractDateTime(date: Date) {
 export function getInitial(text: string) {
   return text.slice(0, 2).toUpperCase() || '';
 }
+
+export function grabUserName(text: string) {
+  return text.split('@')[0];
+}
