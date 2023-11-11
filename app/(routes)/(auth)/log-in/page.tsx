@@ -6,6 +6,7 @@ import { useMutation } from '@/lib/client/hooks';
 import { useRouter } from 'next/navigation';
 import { API_PATH } from '@/lib/const';
 import Link from 'next/link';
+import { useSWRConfig } from 'swr';
 
 interface LoginForm {
   email: string;
@@ -24,9 +25,8 @@ interface LoginMutationResult extends MutationResult {
 }
 
 export default function Login() {
-  const [login, { loading, data, error }] = useMutation<LoginMutationResult>(
-    API_PATH.AUTH
-  );
+  const { mutate } = useSWRConfig();
+  const [login, { data }] = useMutation<LoginMutationResult>(API_PATH.AUTH);
   const [confirmToken, { loading: tokenLoading, data: tokenData }] =
     useMutation<MutationResult>(API_PATH.CONFIRM);
   const { register, handleSubmit } = useForm<LoginForm>();
@@ -45,7 +45,9 @@ export default function Login() {
 
   useEffect(() => {
     if (tokenData?.ok) {
-      console.log('succesfully logged in');
+      console.log('mutating data');
+      mutate(API_PATH.ME, null, false);
+      console.log('pushing to router');
       router.push('/');
     }
   }, [tokenData, router]);
