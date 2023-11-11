@@ -1,3 +1,5 @@
+'use client';
+
 import { useRouter } from 'next/navigation';
 import { Button } from '..';
 import { useSWRConfig } from 'swr';
