@@ -18,7 +18,7 @@ export default function Layout({
   children,
 }: LayoutProps) {
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <Header title={title} canGoBack={canGoBack} />
       <div className={cls('pt-12', hasTabBar ? 'pb-24' : '')}>{children}</div>
       {hasTabBar ? <Nav /> : null}
