@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 
 export default function LogoutBtn() {
   const router = useRouter();
-  const { mutate: globalMutate } = useSWRConfig();
+  const { mutate } = useSWRConfig();
   const [logout, { data: logoutData }] = useMutation(API_PATH.LOGOUT);
   const onLogout = () => {
     logout();
@@ -17,8 +17,8 @@ export default function LogoutBtn() {
 
   useEffect(() => {
     if (logoutData?.ok) {
+      mutate(API_PATH.ME, null, false);
       router.replace('/log-in');
-      console.log('redirect to logout');
     }
   }, [logoutData, router]);
 
