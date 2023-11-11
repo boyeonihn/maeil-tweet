@@ -1,9 +1,7 @@
 'use client';
 
-import { Layout, Button } from '@/components';
-import { API_PATH } from '@/lib/const';
-import { Comment, Post, User } from '@prisma/client';
 import { useParams } from 'next/navigation';
+import useSWR from 'swr';
 import Link from 'next/link';
 import {
   Layout,
@@ -14,13 +12,15 @@ import {
 } from '@/components';
 import { API_PATH } from '@/lib/const';
 import { useMutation, useUser } from '@/lib/client/hooks';
-import { cls } from '@/lib/client/utils';
+import {
+  cls,
+  extractDateTime,
+  getInitial,
+  grabUserName,
+} from '@/lib/client/utils';
+import { CommentWithUser, PostWithUser, RelatedPost } from '@/lib/types';
 
-interface PostWithUser extends Post {
-  user: User;
-  comments: Comment[];
-}
-interface PosttDetailResponse {
+interface PostDetailResponse {
   ok: boolean;
   post: PostWithUser;
   relatedPosts: Post[];
