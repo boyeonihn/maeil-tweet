@@ -17,10 +17,10 @@ interface PostCommentMutation {
 
 interface CommentFormProp {
   id: string;
-  refreshData?: () => void;
+  refreshData: () => void;
 }
 export default function CommentForm({ id, refreshData }: CommentFormProp) {
-  const { register, handleSubmit } = useForm<PostCommentForm>();
+  const { register, handleSubmit, reset } = useForm<PostCommentForm>();
   const [postComment, { loading, data }] = useMutation<PostCommentMutation>(
     API_PATH.COMMENT(id)
   );
@@ -34,7 +34,8 @@ export default function CommentForm({ id, refreshData }: CommentFormProp) {
 
   useEffect(() => {
     if (data?.ok) {
-      router.push(`/tweets/${id}`);
+      refreshData();
+      reset();
     }
   }, [data, router]);
   return (
