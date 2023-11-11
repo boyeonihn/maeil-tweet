@@ -10,6 +10,7 @@ export const GET = async (
   const {
     user: { id: userId },
   } = await readCookieFromStorageServerAction(SESSION);
+
   const post = await prismaClient.post.findUnique({
     where: {
       id: +id,
@@ -19,31 +20,57 @@ export const GET = async (
         select: {
           id: true,
           name: true,
+          email: true,
           avatar: true,
         },
       },
-      comments: true,
     },
   });
 
-  console.log(post, 'post brought from db');
+  const comments = await prismaClient.comment.findMany({
+    where: {
+      post: {
+        id: +id,
+      },
+    },
+    include: {
+      user: {
+        select: {
+          name: true,
+          email: true,
+          avatar: true,
+        },
+      },
+    },
+  });
+
   const keywords = post?.content.split(' ').map((keyword) => ({
     content: {
       contains: keyword,
     },
   }));
 
-  // const comments = await prismaClient.comment.findMany({
-  //   where: {
-  //     id: { in: post?.comments },
-  //   },
-  // });
   const relatedPosts = await prismaClient.post.findMany({
     where: {
       OR: keywords,
       AND: {
         id: {
           not: +id,
+        },
+      },
+    },
+    include: {
+      _count: {
+        select: {
+          likes: true,
+          comments: true,
+        },
+      },
+      user: {
+        select: {
+          id: true,
+          name: true,
+          avatar: true,
         },
       },
     },
@@ -57,7 +84,7 @@ export const GET = async (
   });
 
   return NextResponse.json(
-    { ok: true, post, relatedPosts, isLiked: !!isLiked },
+    { ok: true, post, comments, relatedPosts, isLiked: !!isLiked },
     { status: 200 }
   );
 };
