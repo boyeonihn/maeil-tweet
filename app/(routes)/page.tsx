@@ -3,8 +3,17 @@
 import useSWR, { useSWRConfig } from 'swr';
 import { Post as PostSchema, User } from '@prisma/client';
 import { API_PATH } from '@/lib/const';
-import { useUser } from '@/lib/client/hooks';
-import { WriteForm, Layout, Post, FloatingButton } from '@/components';
+import { useMutation, useUser } from '@/lib/client/hooks';
+import {
+  WriteForm,
+  Layout,
+  Post,
+  FloatingButton,
+  Button,
+  LogoutBtn,
+} from '@/components';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface LikeCommentCount {
   likes: number;
@@ -21,7 +30,6 @@ interface PostsResponse {
 
 export default function Home() {
   const { user, isLoading } = useUser();
-  const { mutate: globalMutate } = useSWRConfig();
   const {
     data,
     isLoading: isLoadingData,
@@ -32,15 +40,15 @@ export default function Home() {
     mutate();
   };
 
-  console.log('checking existence of user', user);
   return (
     <Layout title="Home" hasTabBar={true}>
       <main className="flex flex-col space-y-5 divide-y">
+        <LogoutBtn />
         <section>
           <WriteForm locatedAtHomePage={true} refreshData={refreshData} />
         </section>
         {!isLoadingData && (
-          <div>
+          <section>
             {data?.posts && data.posts.length > 0 ? (
               data?.posts.map((post) => (
                 <Post
@@ -55,7 +63,7 @@ export default function Home() {
             ) : (
               <h1> No Posts! </h1>
             )}
-          </div>
+          </section>
         )}
         <FloatingButton href="/tweets/write" type="write" />
       </main>

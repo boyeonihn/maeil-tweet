@@ -4,6 +4,7 @@ export const API_PATH = {
   POST: '/api/posts',
   CREATE: '/api/users/create',
   CONFIRM: '/api/users/confirm',
+  LOGOUT: '/api/users/logout',
   LIKE: (postId: string) => `/api/posts/${postId}/like`,
 };
 

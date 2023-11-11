@@ -7,3 +7,4 @@ export { default as Message } from './message';
 export { default as TextArea } from './textarea';
 export { default as Divider } from './divider';
 export { default as WriteForm } from './writeForm';
+export { default as LogoutBtn } from './logoutBtn';

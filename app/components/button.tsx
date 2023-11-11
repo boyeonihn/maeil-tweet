@@ -18,6 +18,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
+      onClick={onClick}
       type={type}
       className={cls(
         'btn w-full shadow-md',
