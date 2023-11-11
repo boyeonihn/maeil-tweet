@@ -12,6 +12,7 @@ import {
   Button,
   CommentForm,
 } from '@/components';
+import { API_PATH } from '@/lib/const';
 import { useMutation, useUser } from '@/lib/client/hooks';
 import { cls } from '@/lib/client/utils';
 
@@ -30,9 +31,9 @@ interface PosttDetailResponse {
 const PostDetail = () => {
   const { user, isLoading } = useUser();
   const { id } = useParams();
-  const [toggleLike, { loading }] = useMutation(API_PATH.LIKE(id[0]));
-  const { data, mutate: boundMutate } = useSWR<PosttDetailResponse>(
-    id ? `${API_PATH.POST}/${id}` : null
+  const [toggleLike, { loading }] = useMutation(API_PATH.LIKE(id.toString()));
+  const { data, mutate: boundMutate } = useSWR<PostDetailResponse>(
+    id ? `${API_PATH.POST}/${id.toString()}` : null
   );
 
   const onLikeClick = () => {
@@ -48,6 +49,7 @@ const PostDetail = () => {
     // the first parameter replaces the data variable
     // second argument true - triggers revaldiation
   };
+
   return (
     <Layout canGoBack hasTabBar>
       <main className="px-4 py-4">
