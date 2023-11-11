@@ -70,8 +70,9 @@ const PostDetail = () => {
           </>
         ) : (
           <div className="flex justify-center items-center">
+            <span className="loading loading-lg loading-spinner text-primary"></span>
           </div>
-        </section>
+        )}
       </main>
     </Layout>
   );
