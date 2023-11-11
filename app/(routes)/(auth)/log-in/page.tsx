@@ -18,15 +18,12 @@ interface TokenForm {
 
 interface MutationResult {
   ok: boolean;
-}
-
-interface LoginMutationResult extends MutationResult {
   error?: string;
 }
 
 export default function Login() {
   const { mutate } = useSWRConfig();
-  const [login, { data }] = useMutation<LoginMutationResult>(API_PATH.AUTH);
+  const [login, { data }] = useMutation<MutationResult>(API_PATH.AUTH);
   const [confirmToken, { loading: tokenLoading, data: tokenData }] =
     useMutation<MutationResult>(API_PATH.CONFIRM);
   const { register, handleSubmit } = useForm<LoginForm>();
@@ -45,9 +42,7 @@ export default function Login() {
 
   useEffect(() => {
     if (tokenData?.ok) {
-      console.log('mutating data');
       mutate(API_PATH.ME, null, false);
-      console.log('pushing to router');
       router.push('/');
     }
   }, [tokenData, router]);
@@ -68,6 +63,7 @@ export default function Login() {
               type="number"
               required
             />
+            {tokenData?.ok === false && <span>{tokenData?.error}</span>}
             <Button text={tokenLoading ? 'Loading' : 'Confirm Token'} />
           </form>
         ) : (
