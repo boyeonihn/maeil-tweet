@@ -23,6 +23,9 @@ export const POST = async (req: NextRequest) => {
 
 export const GET = async () => {
   const posts = await prismaClient.post.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
     include: {
       _count: {
         select: {
