@@ -11,6 +11,7 @@ import {
   LogoutBtn,
 } from '@/components';
 import { PostsResponse } from '@/lib/types';
+import { SwitchTheme } from '@/components/layout/switchTheme';
 
 export default function Home() {
   const { user, isLoading } = useUser();
@@ -30,6 +31,7 @@ export default function Home() {
       {user && (
         <>
           <main className="flex flex-col space-y-5 divide-y mt-8">
+            <SwitchTheme />
             {!isLoading && user && <LogoutBtn />}
             <h1 className="text-4xl font-mono font-thin pt-5 hover:text-primary hover:font-bold hover:backdrop-blur-3xl  transition:all">
               Maeil-Tweet

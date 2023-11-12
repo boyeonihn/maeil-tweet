@@ -7,5 +7,5 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
-  return <LayoutComponent hasTabBar>{children}</LayoutComponent>;
+  return <LayoutComponent>{children}</LayoutComponent>;
 }
