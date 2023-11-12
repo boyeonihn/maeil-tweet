@@ -11,6 +11,9 @@ export default function useUser() {
   useEffect(() => {
     if (data)
       if (data.ok === false) {
+        if (pathName === '/create-account') {
+          return;
+        }
         router.push('/log-in');
       } else {
         if (pathName === '/log-in' || pathName === '/create-account') {
