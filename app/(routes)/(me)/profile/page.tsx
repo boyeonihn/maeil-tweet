@@ -11,7 +11,7 @@ import { SwitchTheme } from '@/components/layout/switchTheme';
 export default function Profile() {
   const { user, isLoading } = useUser();
   const { data, isLoading: isLoadingData } = useSWR<PostsResponse>(
-    API_PATH.MYPOST(user.id)
+    API_PATH.MYPOST
   );
 
   return (

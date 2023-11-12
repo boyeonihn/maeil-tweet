@@ -13,6 +13,8 @@ interface JoinForm {
   username: string;
   name: string;
   avatar?: string;
+  password: string;
+  confirmPw: string;
 }
 
 interface MutationResult {
@@ -37,9 +39,6 @@ export default function CreateAccount() {
     if (data?.ok) {
       alert('Account successfully created!');
       router.push('/log-in');
-    } else if (data?.ok === false) {
-      alert(data?.error);
-      reset();
     }
   }, [data, router]);
 
@@ -50,11 +49,29 @@ export default function CreateAccount() {
         onSubmit={handleSubmit(onValid)}
         className="flex flex-col mt-8 space-y-4"
       >
+        {data?.error && <span className="text-primary">{data?.error}</span>}
         <Input
           register={register('email', { required: true })}
           name="email"
           label="Email"
           type="email"
+          kind="text"
+          required
+        />
+        <Input
+          register={register('password', { required: true })}
+          name="password"
+          label="Password"
+          type="password"
+          kind="text"
+          required
+        />
+        <Input
+          register={register('confirmPw', { required: true })}
+          name="password again"
+          labelType="declarative"
+          label="Confirm Password"
+          type="password"
           kind="text"
           required
         />
