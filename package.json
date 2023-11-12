@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.5.2",
+    "@uidotdev/usehooks": "^2.4.1",
     "iron-session": "github:renchris/iron-session#v8-as-dependency",
     "next": "14.0.1",
     "nodemailer": "^6.9.7",
