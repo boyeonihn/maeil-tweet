@@ -12,9 +12,9 @@ Next.js 포스트 기반 웹 SNS - A Next.js post-based social media web applica
 
 ## 🚀 Getting Started | 프로젝트 실행 방법
 
-Please note that this project supports Node.js version 18 or higher.
+### Please note that this project supports Node.js version 18 or higher.
 
-이 프로젝트는 node 18 버전 이상을 지원합니다.
+### 이 프로젝트는 node 18 버전 이상을 지원합니다.
 
 First, please create a `.env` file and create a variable with the name of `COOKIE_PW` and assign the variable a 40-character long password. You could run the following command in the terminal to do this.
 
