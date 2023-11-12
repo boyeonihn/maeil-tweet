@@ -10,7 +10,7 @@ import { PostsResponse } from '@/lib/types';
 export default function Profile() {
   const { user, isLoading } = useUser();
   const { data, isLoading: isLoadingData } = useSWR<PostsResponse>(
-    API_PATH.MYPOST
+    API_PATH.MYPOST(user.id)
   );
   console.log('user in profile', user);
 
