@@ -17,6 +17,7 @@ export const sessionOptions: IronSessionOptions = {
   },
 };
 
+// if using email-token system:
 // auth-user object options (storing which user requested the token)
 export const authOptions: IronSessionOptions = {
   password: process.env.COOKIE_PW!,

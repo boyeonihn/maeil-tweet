@@ -9,10 +9,7 @@ export const GET = async (isPrivate = true) => {
 
   // console.log('api/users/me - checking cookies of logged in user', cookieFromStorage);
   if (isPrivate && !cookieFromStorage.user) {
-    return NextResponse.json(
-      { ok: false, error: 'Please login!' },
-      { status: 401 }
-    );
+    return NextResponse.json({ ok: false, error: 'Please login!' });
   }
 
   const userProfile = await prismaClient.user.findUnique({

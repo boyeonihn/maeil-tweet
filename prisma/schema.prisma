@@ -18,21 +18,10 @@ model User {
   avatar String? 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  tokens Token[]
+  password String
   posts Post[]
   likes Like[]
   comments Comment[]
-}
-
-model Token {
-  id Int @id @default(autoincrement())
-  payload String @unique
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId])
 }
 
 model Post {
@@ -61,7 +50,6 @@ model Like {
   
   @@index([userId])
   @@index([postId])
-
 }
 
 model Comment {

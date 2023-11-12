@@ -1,16 +1,12 @@
 import { NextResponse } from 'next/server';
-import prismaClient from '@/lib/server/prismaClient';
-import sendEmail from '@/lib/server/nodemailerClient';
 import { findUserByEmail } from '@/lib/server/prismaHandler';
-import {
-  readCookieFromStorageServerAction,
-  submitCookieToStorageServerAction,
-} from '@/lib/server/serverActions';
-import { AUTH } from '@/lib/const';
+import { submitCookieToStorageServerAction } from '@/lib/server/serverActions';
+import { SESSION } from '@/lib/const';
+import bcrypt from 'bcrypt';
 
 export const POST = async (req: Request) => {
   const res = await req.json();
-  const { email } = res;
+  const { email, password } = res;
 
   if (!email) return NextResponse.json({ status: 400 });
 
@@ -24,28 +20,19 @@ export const POST = async (req: Request) => {
     });
   }
 
-  const tokenPayload = Math.floor(100000 + Math.random() * 900000) + '';
+  const comparePassword = await bcrypt.compare(password, userExists.password);
 
-  const token = await prismaClient.token.create({
-    data: {
-      payload: tokenPayload,
-      user: {
-        connect: {
-          email,
-        },
-      },
-    },
-  });
-
-  console.log('sending token', { token });
-  // sendEmail(email, tokenPayload);
-
-  const authInfoCookieAttempt = await submitCookieToStorageServerAction({
+  if (!comparePassword) {
+    return NextResponse.json({
+      status: 401,
+      ok: false,
+      error: 'Incorrect password.',
+    });
+  }
+  const sessionStored = await submitCookieToStorageServerAction({
     cookie: userExists.id,
-    type: AUTH,
+    type: SESSION,
   });
-
-  const bringCookieBack = await readCookieFromStorageServerAction(AUTH);
 
   return NextResponse.json({ ok: true }, { status: 200 });
 };
