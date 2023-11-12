@@ -17,6 +17,7 @@ export default function Input({
   register,
   type,
   required,
+  label,
   labelType = 'question',
 }: InputProps) {
   return (
@@ -35,7 +36,7 @@ export default function Input({
             type={type}
             id={name}
             required={required}
-            placeholder="Type here"
+            placeholder={label}
             className="input input-bordered w-full text-lg max-w-lg input-primary rounded-lg shadow-sm focus:bg-sky-200"
             {...register}
           />
