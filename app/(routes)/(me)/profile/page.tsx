@@ -12,7 +12,6 @@ export default function Profile() {
   const { data, isLoading: isLoadingData } = useSWR<PostsResponse>(
     API_PATH.MYPOST(user.id)
   );
-  console.log('user in profile', user);
 
   return (
     <Layout title="My Profile" canGoBack hasTabBar>
@@ -24,7 +23,9 @@ export default function Profile() {
               <h1 className="text-4xl">{user.name}</h1>
               <h2 className="text-2xl">@{grabUserName(user.email)}</h2>
             </div>
-            {data && <TextContainer title="My Posts" postData={data.posts} />}
+            {user && data && (
+              <TextContainer title="My Posts" postData={data.posts} />
+            )}
           </>
         )}
       </main>
