@@ -1,4 +1,3 @@
-// import twilio from 'twilio';
 import { NextResponse } from 'next/server';
 import prismaClient from '@/lib/server/prismaClient';
 import sendEmail from '@/lib/server/nodemailerClient';
@@ -9,7 +8,6 @@ import {
 } from '@/lib/server/serverActions';
 import { AUTH } from '@/lib/const';
 
-// const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 export const POST = async (req: Request) => {
   const res = await req.json();
   const { email } = res;
@@ -47,7 +45,7 @@ export const POST = async (req: Request) => {
     type: AUTH,
   });
 
-  const bringCookieBack = await readCookieFromStorageServerAction('auth');
+  const bringCookieBack = await readCookieFromStorageServerAction(AUTH);
 
   return NextResponse.json({ ok: true }, { status: 200 });
 };
