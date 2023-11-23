@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { cls } from '@/lib/client/utils';
 import SWRProvider from '@/components/SWRProvider';
+import { cookies } from 'next/headers';
+import { getThemeName } from '@/lib/common/theme';
+import { ThemeMode } from '@/lib/types';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,8 +19,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = cookies();
+  const theme = cookieStore.get('theme');
+  const themeName = getThemeName(theme?.value as ThemeMode);
+
   return (
-    <html lang="en">
+    <html lang="en" data-theme={themeName}>
       <body className={cls(inter.className, 'w-full max-w-lg mx-auto')}>
         <SWRProvider>{children}</SWRProvider>
       </body>

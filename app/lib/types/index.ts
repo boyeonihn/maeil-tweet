@@ -28,3 +28,5 @@ export interface PostsResponse {
   ok: boolean;
   posts: PostsWithLikeCount[];
 }
+
+export type ThemeMode = 'light' | 'dark';

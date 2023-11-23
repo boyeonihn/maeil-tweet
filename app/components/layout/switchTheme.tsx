@@ -2,21 +2,22 @@
 
 import React, { useEffect } from 'react';
 import { useLocalStorage } from '@uidotdev/usehooks';
+import { getThemeName } from '@/lib/common/theme';
+import { ThemeMode } from '@/lib/types';
 
 export const SwitchTheme = () => {
-  const [theme, setTheme] = useLocalStorage('theme', 'light');
+  const [theme, setTheme] = useLocalStorage<ThemeMode>('theme', 'light');
 
   const toggleTheme = () => {
     console.log('click');
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.cookie = `theme=${newTheme}`;
   };
 
   useEffect(() => {
     const html = document.documentElement;
-    html.setAttribute(
-      'data-theme',
-      theme === 'light' ? 'valentine' : 'dracula'
-    );
+    html.setAttribute('data-theme', getThemeName(theme));
   }, [theme]);
 
   return (
