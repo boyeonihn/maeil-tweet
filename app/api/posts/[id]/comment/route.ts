@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prismaClient from '@/lib/server/prismaClient';
 import { readCookieFromStorageServerAction } from '@/lib/server/serverActions';
 import { SESSION } from '@/lib/const';
+import { createComment } from '@/lib/server/prismaHandler';
 
 export const POST = async (
   req: NextRequest,
@@ -12,21 +12,7 @@ export const POST = async (
     user: { id: userId },
   } = await readCookieFromStorageServerAction(SESSION);
 
-  const comment = await prismaClient.comment.create({
-    data: {
-      content,
-      user: {
-        connect: {
-          id: userId,
-        },
-      },
-      post: {
-        connect: {
-          id: +id,
-        },
-      },
-    },
-  });
+  const comment = await createComment({ content, userId, postId: id });
 
   return NextResponse.json({ ok: true, comment }, { status: 200 });
 };
