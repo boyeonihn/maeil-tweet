@@ -9,7 +9,6 @@ export const SwitchTheme = () => {
   const [theme, setTheme] = useLocalStorage<ThemeMode>('theme', 'light');
 
   const toggleTheme = () => {
-    console.log('click');
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     document.cookie = `theme=${newTheme}`;
