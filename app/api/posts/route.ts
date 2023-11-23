@@ -1,46 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prismaClient from '@/lib/server/prismaClient';
 import { getServerActionSession } from '@/lib/server/session';
+import { createPost, getPosts } from '@/lib/server/prismaHandler';
 
 export const POST = async (req: NextRequest) => {
   const { content } = await req.json();
   const { user } = await getServerActionSession();
 
-  const post = await prismaClient.post.create({
-    data: {
-      content,
-      imageUrl: 'xx',
-      user: {
-        connect: {
-          id: user?.id,
-        },
-      },
-    },
-  });
+  const post = await createPost(user, content);
 
   return NextResponse.json({ ok: true, post }, { status: 200 });
 };
 
 export const GET = async () => {
-  const posts = await prismaClient.post.findMany({
-    orderBy: {
-      createdAt: 'desc',
-    },
-    include: {
-      _count: {
-        select: {
-          likes: true,
-          comments: true,
-        },
-      },
-      user: {
-        select: {
-          id: true,
-          name: true,
-          avatar: true,
-        },
-      },
-    },
-  });
+  const posts = await getPosts();
   return NextResponse.json({ ok: true, posts }, { status: 200 });
 };

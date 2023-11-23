@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import prismaClient from '@/lib/server/prismaClient';
 import { readCookieFromStorageServerAction } from '@/lib/server/serverActions';
 import { SESSION } from '@/lib/const';
+import {
+  findComments,
+  findLikeRecord,
+  findOnePost,
+  getPosts,
+} from '@/lib/server/prismaHandler';
+import { getKeywords } from '@/lib/client/utils';
 
 export const GET = async (
   req: NextRequest,
@@ -11,80 +17,15 @@ export const GET = async (
     user: { id: userId },
   } = await readCookieFromStorageServerAction(SESSION);
 
-  const post = await prismaClient.post.findUnique({
-    where: {
-      id: +id,
-    },
-    include: {
-      user: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          avatar: true,
-        },
-      },
-    },
-  });
+  const post = await findOnePost(id);
+  const comments = await findComments(id);
+  const keywords = getKeywords(post?.content!);
+  const relatedPosts = await getPosts('keywords', id, keywords);
 
-  const comments = await prismaClient.comment.findMany({
-    where: {
-      post: {
-        id: +id,
-      },
-    },
-    include: {
-      user: {
-        select: {
-          name: true,
-          email: true,
-          avatar: true,
-        },
-      },
-    },
-  });
-
-  const keywords = post?.content.split(' ').map((keyword) => ({
-    content: {
-      contains: keyword,
-    },
-  }));
-
-  const relatedPosts = await prismaClient.post.findMany({
-    where: {
-      OR: keywords,
-      AND: {
-        id: {
-          not: +id,
-        },
-      },
-    },
-    include: {
-      _count: {
-        select: {
-          likes: true,
-          comments: true,
-        },
-      },
-      user: {
-        select: {
-          id: true,
-          name: true,
-          avatar: true,
-        },
-      },
-    },
-  });
-
-  const isLiked = await prismaClient.like.findFirst({
-    where: {
-      postId: post?.id,
-      userId,
-    },
-  });
+  const likeRecord = await findLikeRecord({ postId: post?.id!, userId });
 
   return NextResponse.json(
-    { ok: true, post, comments, relatedPosts, isLiked: !!isLiked },
+    { ok: true, post, comments, relatedPosts, isLiked: !!likeRecord },
     { status: 200 }
   );
 };

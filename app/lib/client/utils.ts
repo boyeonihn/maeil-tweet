@@ -18,3 +18,12 @@ export function getInitial(text: string) {
 export function grabUserName(text: string) {
   return text.split('@')[0];
 }
+
+export const getKeywords = (content: string) => {
+  const keywords = content.split(' ').map((keyword) => ({
+    content: {
+      contains: keyword,
+    },
+  }));
+  return keywords;
+};

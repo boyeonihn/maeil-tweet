@@ -27,7 +27,6 @@ const PostPage = () => {
     if (!loading) {
       toggleLike({});
     }
-    toggleLike();
 
     if (!data) {
       return;

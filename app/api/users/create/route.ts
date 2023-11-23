@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
-import prismaClient from '@/lib/server/prismaClient';
-import { cookies } from 'next/headers';
-import { findUserByEmail } from '@/lib/server/prismaHandler';
+import { createUser, findUserByEmail } from '@/lib/server/prismaHandler';
 import bcrypt from 'bcrypt';
 
 export const POST = async (req: Request) => {
@@ -25,13 +23,7 @@ export const POST = async (req: Request) => {
   }
   const saltRounds = 10;
   const hashedPw = await bcrypt.hash(password, saltRounds);
-  const user = await prismaClient.user.create({
-    data: {
-      email,
-      name,
-      password: hashedPw,
-    },
-  });
+  const user = await createUser({ email, name, password: hashedPw });
 
   return NextResponse.json({ ok: true, user }, { status: 200 });
 };
